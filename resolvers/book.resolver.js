@@ -31,13 +31,19 @@ export const bookResolvers = {
     },
   },
   Mutation: {
-    createBook: async (_, { input }) => {
+    addBook: async (_, { title, author, isbn, availableCopies, category }) => {
       try {
-        const book = new Book(input);
+        const book = new Book({
+          title,
+          author,
+          isbn,
+          availableCopies,
+          category,
+        });
         const savedBook = await book.save();
         return savedBook;
       } catch (error) {
-        throw new Error("Error creating book: " + error.message);
+        throw new Error("Error adding book: " + error.message);
       }
     },
     updateBook: async (_, { id, input }) => {

@@ -7,12 +7,12 @@ import { mutationType } from "./types/mutation.type.js";
 import { memberType } from "./types/member.type.js";
 import { borrowingType } from "./types/borrowing.type.js";
 import { bookResolvers } from "./resolvers/book.resolver.js";
-import { memberResolvers } from "./resolvers/Member.resolver.js";
+import { memberResolvers } from "./resolvers/member.resolver.js";
+import { authResolvers } from "./resolvers/auth.resolver.js";
+import { authMiddleware } from "./middleware/auth.js";
 
 const URI =
   "mongodb+srv://PostMingle:PostMingle@postmingle.8cgstgv.mongodb.net/?retryWrites=true&w=majority&appName=PostMingle";
-const JWT_SECRET =
-  "8cc8ebf6cd10c1f34f273d6b83d803e46bf3aa1754ef2227a36904afa4ca819d";
 
 const typeDefs = [bookType, memberType, borrowingType, queryType, mutationType];
 
@@ -23,13 +23,18 @@ const resolvers = {
     hello: () => "Sba7 el 5eeeer",
   },
   Mutation: {
-    ...bookResolvers.Mutation,
+    addBook: bookResolvers.Mutation.addBook,
+    ...authResolvers.Mutation,
   },
 };
 
 async function startServer() {
   const app = express();
-  const server = new ApolloServer({ typeDefs, resolvers });
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: authMiddleware.authMiddleware,
+  });
   await mongoose.connect(URI);
   console.log("DB connected successfully ✔✔");
   await server.start();
