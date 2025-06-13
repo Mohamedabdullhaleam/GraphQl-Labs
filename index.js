@@ -4,12 +4,14 @@ const { ApolloServer, gql } = require("apollo-server-express");
 const typeDefs = gql`
   type Query {
     hello: String
+    users: [String]
   }
 `;
 
 const resolvers = {
   Query: {
     hello: () => "Sba7 el 5eeeer",
+    users: () => ["Mohamed", "haleem"],
   },
 };
 async function startServer() {
