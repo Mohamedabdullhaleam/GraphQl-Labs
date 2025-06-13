@@ -21,6 +21,14 @@ export const bookResolvers = {
         throw new Error("Error fetching book: " + error.message);
       }
     },
+    availableBooks: async () => {
+      try {
+        const books = await Book.find({ availableCopies: { $gt: 0 } });
+        return books;
+      } catch (error) {
+        throw new Error("Error fetching available books: " + error.message);
+      }
+    },
   },
   Mutation: {
     createBook: async (_, { input }) => {
