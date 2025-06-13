@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const borrowingSchema = new mongoose.Schema(
   {
@@ -14,14 +14,12 @@ const borrowingSchema = new mongoose.Schema(
     },
     borrowDate: {
       type: Date,
+      required: true,
       default: Date.now,
     },
     returnDate: {
       type: Date,
-    },
-    returned: {
-      type: Boolean,
-      default: false,
+      default: null,
     },
   },
   {
@@ -31,4 +29,4 @@ const borrowingSchema = new mongoose.Schema(
 
 const Borrowing = mongoose.model("Borrowing", borrowingSchema);
 
-module.exports = Borrowing;
+export default Borrowing;

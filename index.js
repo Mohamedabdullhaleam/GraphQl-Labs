@@ -9,6 +9,7 @@ import { borrowingType } from "./types/borrowing.type.js";
 import { bookResolvers } from "./resolvers/book.resolver.js";
 import { memberResolvers } from "./resolvers/member.resolver.js";
 import { authResolvers } from "./resolvers/auth.resolver.js";
+import { borrowingResolvers } from "./resolvers/borrowing.resolver.js";
 import { authMiddleware } from "./middleware/auth.js";
 
 const URI =
@@ -21,12 +22,14 @@ const resolvers = {
     ...bookResolvers.Query,
     ...memberResolvers.Query,
     ...authResolvers.Query,
+    ...borrowingResolvers.Query,
     hello: () => "Sba7 el 5eeeer",
   },
   Mutation: {
     ...bookResolvers.Mutation,
     ...memberResolvers.Mutation,
     ...authResolvers.Mutation,
+    ...borrowingResolvers.Mutation,
   },
 };
 
