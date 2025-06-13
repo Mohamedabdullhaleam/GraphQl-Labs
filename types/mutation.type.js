@@ -6,6 +6,14 @@ export const mutationType = gql`
     member: Member!
   }
 
+  input BookInput {
+    title: String
+    author: String
+    isbn: String
+    availableCopies: Int
+    category: String
+  }
+
   type Mutation {
     # Public Mutations
     registerMember(
@@ -23,6 +31,7 @@ export const mutationType = gql`
       availableCopies: Int!
       category: String
     ): Book!
+    updateBook(id: ID!, input: BookInput!): Book!
     borrowBook(bookId: ID!): Borrowing!
     returnBook(borrowingId: ID!): Borrowing!
   }

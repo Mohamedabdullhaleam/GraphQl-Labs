@@ -20,10 +20,12 @@ const resolvers = {
   Query: {
     ...bookResolvers.Query,
     ...memberResolvers.Query,
+    ...authResolvers.Query,
     hello: () => "Sba7 el 5eeeer",
   },
   Mutation: {
-    addBook: bookResolvers.Mutation.addBook,
+    ...bookResolvers.Mutation,
+    ...memberResolvers.Mutation,
     ...authResolvers.Mutation,
   },
 };
@@ -33,8 +35,14 @@ async function startServer() {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: authMiddleware.authMiddleware,
+    context: async ({ req }) => {
+      // Apply auth middleware and get the modified request
+      const { req: modifiedReq } = await authMiddleware({ req });
+      // Return the context with the modified request
+      return { req: modifiedReq };
+    },
   });
+
   await mongoose.connect(URI);
   console.log("DB connected successfully ✔✔");
   await server.start();

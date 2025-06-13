@@ -10,5 +10,6 @@ export const queryType = gql`
     getMember(id: ID!): Member
     getBorrowings: [Borrowing!]!
     getBorrowing(id: ID!): Borrowing
+    me: Member
   }
 `;
