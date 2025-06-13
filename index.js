@@ -7,7 +7,7 @@ import { mutationType } from "./types/mutation.type.js";
 import { memberType } from "./types/member.type.js";
 import { borrowingType } from "./types/borrowing.type.js";
 import { bookResolvers } from "./resolvers/book.resolver.js";
-import { memberResolvers } from "./resolvers/member.resolver.js";
+import { memberResolvers } from "./resolvers/Member.resolver.js";
 
 const URI =
   "mongodb+srv://PostMingle:PostMingle@postmingle.8cgstgv.mongodb.net/?retryWrites=true&w=majority&appName=PostMingle";
